@@ -5,19 +5,19 @@ b4 00 # mov 0x00 into ah
 cd 16 # int 0x16
 b4 0e # mov 0x0e into ah
 cd 10 # int 0x10
-88 c2 # mov al into dl
+2c 30 # subtract 0x30 from al
+88 c6 # mov al into dh
+c0 e6 # shift dh left 4 (continued on 1st byte of next line)
+04 90 # ^- and nop
+00 00
 b4 00 # mov 0x00 into ah
 cd 16 # int 0x16
 b4 0e # mov 0x0e into ah
 cd 10 # int 0x10
-88 c6 # mov al into dh
+2c 30 # subtract 0x30 from al
+88 c2 # mov al into dl
 00 00
-00 00
-00 00
-00 00
-00 00
-eb da # jmp -0x26
-00 00
+eb d8 # jmp -0x28
 00 00
 00 00
 00 00
