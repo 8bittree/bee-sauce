@@ -1,22 +1,22 @@
-b4 0e # mov ah, 0x0e
-b0 48 # mov al, 0x48
+b4 0e # mov 0x0e into ah
+b0 3e # mov 0x3e into al
 cd 10 # int 0x10
-b4 00 # mov ah, 0x00
+b4 00 # mov 0x00 into ah
 cd 16 # int 0x16
-b4 0e # mov ah, 0x0e
+b4 0e # mov 0x0e into ah
 cd 10 # int 0x10
-eb f6 # jmp -0x0a
+88 c2 # mov al into dl
+b4 00 # mov 0x00 into ah
+cd 16 # int 0x16
+b4 0e # mov 0x0e into ah
+cd 10 # int 0x10
+88 c6 # mov al into dh
 00 00
 00 00
 00 00
 00 00
 00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
+eb da # jmp -0x26
 00 00
 00 00
 00 00
