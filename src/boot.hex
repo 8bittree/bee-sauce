@@ -15,12 +15,12 @@ cd 16 # int 0x16
 b4 0e # mov 0x0e into ah
 cd 10 # int 0x10
 2c 30 # subtract 0x30 from al
-88 c2 # mov al into dl
+08 f0 # or dh into al
+b4 0e # mov 0x0e into ah
+cd 10 # int 0x10
 00 00
-eb d8 # jmp -0x28
 00 00
-00 00
-00 00
+eb d2 # jmp -0x2e
 00 00
 00 00
 00 00
