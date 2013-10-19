@@ -1,7 +1,11 @@
-all: clean floppy
+build: bin/boot.bin
+
+clean-build: clean build
 
 floppy: bin/boot.bin bin/floppy.flp
 	dd conv=notrunc if=bin/boot.bin of=bin/floppy.flp
+
+clean-floppy: clean floppy
 
 bin/floppy.flp:
 	dd if=/dev/zero of=bin/floppy.flp bs=512 count=2880
