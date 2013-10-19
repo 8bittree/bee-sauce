@@ -1,98 +1,98 @@
-b4 0e # mov ah, 0x0e
-b0 48 # mov al, 0x48
+b8 e0 # mov 0x7e0 to ax (cont)
+07 90 # ^- and nop
+8e c0 # mov ax to es
+b9 fe # mov 510 to cx (cont)
+01 fc # ^- and clear direction bit
+90 90
+b4 0e # mov 0x0e into ah
+b0 3e # mov 0x3e into al
 cd 10 # int 0x10
-b4 00 # mov ah, 0x00
+b4 00 # mov 0x00 into ah
 cd 16 # int 0x16
-b4 0e # mov ah, 0x0e
+b4 0e # mov 0x0e into ah
 cd 10 # int 0x10
-eb f6 # jmp -0x0a
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
+b2 77 # mov 0x77 into dl
+38 d0 # cmp al, dl
+74 2a # jz 0x2a
+b2 71 # mov 0x71 into dl
+38 d0 # cmp al, dl
+0f 84 # jz 0x84 (cont)
+80 00 # ^-
+90 90
+2c 30 # subtract 0x30 from al
+88 c6 # mov al into dh
+c0 e6 # shift dh left 4 (continued on 1st byte of next line)
+04 90 # ^- and nop
+90 90
+b4 00 # mov 0x00 into ah
+cd 16 # int 0x16
+b4 0e # mov 0x0e into ah
+cd 10 # int 0x10
+2c 30 # subtract 0x30 from al
+08 f0 # or dh into al
+b4 0e # mov 0x0e into ah
+cd 10 # int 0x10
+aa 90 # stosb and nop
+90 90
+e2 c2 # loop -0x3e
+bf fe # mov 510 into di (cont)
+01 90 # ^- and nop
+b4 0e # mov 0x0e into ah
+b0 55 # mov 0x55 into al
+cd 10 # int 0x10
+aa 90 # stosb and nop
+b0 aa # mov 0xaa into al
+cd 10 # int 0x10
+aa 90 # stosb and nop
+90 90
+b4 03 # mov 0x03 into ah
+b0 01 # mov 0x01 into al
+31 db # xor bx into bx
+b9 01 # mov 0x1 into cx (cont)
+00 90 # ^- and nop
+89 ca # mov cx into dx
+cd 13 # int 0x13
+90 90
+72 1e # jnc 0x1e
+b4 0e # mov 0x0e into ah
+b0 0a # mov 0x0a into al
+cd 10 # int 0x10
+b0 0d # mov 0x0d into al
+cd 10 # int 0x10
+b0 44 # mov 0x44 into al
+cd 10 # int 0x10
+b0 6f # mov 0x6f into al
+cd 10 # int 0x10
+b0 6e # mov 0x6e into al
+cd 10 # int 0x10
+b0 65 # mov 0x65 into al
+cd 10 # int 0x10
+eb 1e # jmp 0x1e
+90 90
+b4 0e # mov 0x0e into ah
+b0 0a # mov 0x0a into al
+cd 10 # int 0x10
+b0 0d # mov 0x0d into al
+cd 10 # int 0x10
+b0 46 # mov 0x46 into al
+cd 10 # int 0x10
+b0 61 # mov 0x61 into al
+cd 10 # int 0x10
+b0 69 # mov 0x69 into al
+cd 10 # int 0x10
+b0 6c # mov 0x6c into al
+cd 10 # int 0x10
+90 90
+b4 0e # mov 0x0e into ah
+b0 0a # mov 0x0a into al
+cd 10 # int 0x10
+b0 42 # mov 0x42 into al
+cd 10 # int 0x10
+b0 79 # mov 0x79 into al
+cd 10 # int 0x10
+b0 65 # mov 0x65 into al
+cd 10 # int 0x10
+eb fe # jmp here
 00 00
 00 00
 00 00
