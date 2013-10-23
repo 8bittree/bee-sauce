@@ -125,11 +125,11 @@ cd 10 # int 0x10
 90 90
 81 ff # cmp di, 0 (cont)
 00 00 # ^-
-0f 84 # jz -0xf6 (cont)
-0a ff # ^-
+0f 84 # jz -0xf0 (cont)
+10 ff # ^-
 4f 90 # dec di and nop
-90 e9 # nop and jmp -0xfc (cont)
-04 ff # ^-
+90 e9 # nop and jmp -0xf6 (cont)
+0a ff # ^-
 00 00
 00 00
 00 00
