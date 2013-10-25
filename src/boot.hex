@@ -16,7 +16,7 @@ cd 10 # int 0x10
 2c 30 # subtract 0x30 from al
 3c 31 # cmp al, 0x31
 7c 02 # jl 0x2
-2c 31 # subtract 0x31 from al
+2c 27 # subtract 0x27 from al
 88 c6 # mov al into dh
 c0 e6 # shift dh left 4 (continued on 1st byte of next line)
 04 90 # ^- and nop
@@ -27,7 +27,7 @@ cd 10 # int 0x10
 2c 30 # subtract 0x30 from al
 3c 31 # cmp al, 0x31
 7c 02 # jl 0x2
-2c 31 # subtract 0x31 from al
+2c 27 # subtract 0x27 from al
 08 f0 # or dh into al
 aa 90 # stosb and nop
 90 90
