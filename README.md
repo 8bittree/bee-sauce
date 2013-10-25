@@ -3,12 +3,15 @@ bee-sauce
 
 Operating System + Programming Language Bootstrapped from hex files.
 
-**Version 0.1.0**: Input hex and write to disk.
+**Version 0.2.0**: Input hex and write to disk. Now with traditional hex characters and backspace!
 
-Current Capabilities
---------------------
+Usage
+-----
 
-Boots up and accepts hexadecimal digit pairs (using characters [0-9:;<=>?]) and converts each pair into a single byte. After 510 such pairs, all converted bytes are written to the 1st sector of fdb. Characters other than the digits 0-9, colon, semicolon, left angle bracket, equals, right angle bracket, and question mark are accepted, but the results are mostly undefined. If the first character of the pair is 'q', then 'Bye' is printed and nothing else useful is done. If the first character of the pair is 'w', then all current input bytes are written to the 1st sector of fdb and the boot signature (0x55aa) is written to the end of the sector.
+Boot. Preferably with a writable floppy disk in fdb.
+Enter up to 510 bytes via hex digit pairs (characters [0-9a-f], [A-F] will *not* work). Backspace can be used at the beginning of a character pair to undo the previous byte (character pair) entered.
+Press 'w' at the beginning of a character pair to write all entered bytes to the 1st sector of fdb. This will happen automatically if 510 bytes are entered. A boot signature (0x55 0xaa) will also be written to the end of the sector.
+Press 'q' at the beginning of a character pair to discard everything and do nothing until a reboot.
 
 To Build
 --------
@@ -28,7 +31,31 @@ To Build
 Near Future Plans
 -----------------
 
-- Start using traditional hex characters [0-9a-f]
-- Enable backspace
-- Edit arbitrary locations in sector memory array
-- Load existing sector from fdb and edit that instead of starting from scratch
+- Edit arbitrary locations in sector memory array.
+- Load existing sector from fdb and edit that instead of starting from scratch.
+- Refactor code because its a mess and hopefully it can be shortened because typing it all is a pain.
+
+Distant Future Plans
+--------------------
+
+- Make bootloader bring machine to similar state as GRUB. (Then dump it for GRUB)
+- GUI!
+- Networking!
+- Accelerated Graphics Driver! (or at least VESA)
+- Colored Screens of Death!
+- Filesystems!
+- Other drivers!
+- More stuff! Probably!
+
+Changelog
+---------
+
+### 0.2.0
+
+- Characters [0-9a-f] are now converted to the expected byte value.
+- Backspace can undo previous entered character pairs/bytes.
+
+### 0.1.0
+
+- Initial Release. Alpha = very yes.
+- Converts input character pairs to binary, writes to sector 1 of fdb.
