@@ -15,20 +15,20 @@ bc 00 # mov 0x1000 into sp (cont)			# finish setting up stack
 90 f4 # nop and hlt
 eb fd # jump -0x3
 55 89 # push bp and mov sp into bp (cont)	# procedure: print ui
-e5 90 # ^- and nop
-00 00
-00 00
-00 00
-00 00
+e5 50 # ^- and push ax
+b4 0e # mov 0x0e into ah
+b0 0d # mov 0x0d (CR) into al
+cd 10 # int 0x10
+b0 40 # mov 0x40 ('@') into al
+cd 10 # int 0x10
+b0 20 # mov 0x20 (' ') into al
+cd 10 # int 0x10
+b0 30 # mov 0x30 ('0') into al
+cd 10 # int 0x10
+b0 78 # mov 0x78 ('x') into al
+cd 10 # int 0x10
+90 58 # nop and pop ax
 c9 c3 # leave and ret
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
 00 00
 00 00
 00 00
