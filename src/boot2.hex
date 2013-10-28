@@ -30,49 +30,49 @@ cd 10 # int 0x10
 88 f8 # mov bh into al						# convert bx to hex number
 c0 e8 # logical shift al right 4 (cont)
 04 e8 # ^- and call cntc (cont)
-2a 00 # ^-
+4a 00 # ^-
 cd 10 # int 0x10
 88 f8 # mov bh into al
 24 0f # and 0xf into al
-e8 21 # call cntc (cont)
+e8 41 # call cntc (cont)
 00 cd # ^- and int 0x10 (cont)
 10 88 # ^- and mov bl into al (cont)
 d8 c0 # ^- and logical shift al right 4 (cont)
 e8 04 # ^-
-e8 17 # call cntc (cont)
+e8 37 # call cntc (cont)
 00 cd # ^- and  int 0x10 (cont)
 10 88 # ^- and mov bl into al (cont)
 d8 24 # ^- and and 0xf into al (cont)
 0f e8 # ^- and call cntc (cont)
-0e 00 # ^-
+2e 00 # ^-
 cd 10 # int 0x10							# done printing bx
 b0 20 # mov 0x20 (' ') into al
 cd 10 # int 0x10
 b0 5b # mov 0x5b ('[') into al
 cd 10 # int 0x10
-90 58 # nop and pop ax
+26 8a # mov [es:bx] into al (cont)			# convert current value to hex number
+07 c0 # ^- and logical shift al right 4 (cont)
+e8 04 # ^-
+e8 1b # call cntc (cont)
+00 cd # ^- and int 0x10 (cont)
+10 26 # ^- and mov [es:bx] into al (cont)
+8a 07 # ^-
+24 0f # and 0xf into al
+e8 11 # call cntc (cont)
+00 cd # ^- and int 0x10 (cont)				# done printing value
+10 b0 # ^- and mov 0x5d (']') into al (cont)
+5d cd # ^- and int 0x10 (cont)
+10 b0 # ^- and mov 0x20 (' ') into al (cont)
+20 cd # ^- and int 0x10 (cont)
+10 b0 # ^- and mov 0x3e ('>') into al (cont)
+3e cd # ^- and int 0x10 (cont)
+10 58 # ^- and pop ax
 c9 c3 # leave and ret
 04 30 # add 0x30 to al						# convert nibble to character (cntc)
 3c 3a # cmp al, 0x3a
 7c 02 # jl 0x20
 04 27 # add 0x27 to al
 c3 90 # ret and nop
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
 00 00
 00 00
 00 00
