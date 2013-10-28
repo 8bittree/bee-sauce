@@ -3,24 +3,24 @@ b8 e0 # mov 0x7e0 to ax (cont)				# Set up segments
 c0 05 # ^- and add 0x120 to ax (cont)
 20 01 # ^-
 8e d0 # mov ax to ss
+bc 00 # mov 0x1000 into sp (cont)			# finish setting up stack
+10 fc # ^- and clear direction bit
+31 c9 # xor cx into cx
+90 e8 # nop and call 0x0c (cont)			# print ui
+0c 00 # ^-
+90 90										# get character
+90 90
+90 90										# parse and command
+90 90
+90 f4 # nop and hlt
+eb fd # jump -0x3
+55 89 # push bp and mov sp into bp (cont)	# procedure: print ui
+e5 90 # ^- and nop
 00 00
 00 00
 00 00
 00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
+c9 c3 # leave and ret
 00 00
 00 00
 00 00
