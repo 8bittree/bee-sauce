@@ -29,30 +29,30 @@ b0 78 # mov 0x78 ('x') into al
 cd 10 # int 0x10
 88 e8 # mov ch into al						# convert cx to hex number
 c0 e8 # logical shift al right 4 (cont)
-04 e8 # ^- and call 0x6 (cont)
+04 e8 # ^- and call cntc (cont)
+22 00 # ^-
+cd 10 # int 0x10
+88 e8 # mov ch into al
+24 0f # and 0xf into al
+e8 19 # call cntc (cont)
+00 cd # ^- and int 0x10 (cont)
+10 88 # ^- and mov cl into al (cont)
+c8 c0 # ^- and logical shift al right 4 (cont)
+e8 04 # ^-
+e8 0f # call cntc (cont)
+00 cd # ^- and  int 0x10 (cont)
+10 88 # ^- and mov cl into al (cont)
+c8 24 # ^- and and 0xf into al (cont)
+0f e8 # ^- and call cntc (cont)
 06 00 # ^-
 cd 10 # int 0x10
 90 58 # nop and pop ax
 c9 c3 # leave and ret
-04 30 # add 0x30 to al						# convert nibble to character
+04 30 # add 0x30 to al						# convert nibble to character (cntc)
 3c 3a # cmp al, 0x3a
 7c 02 # jl 0x20
 04 27 # add 0x27 to al
 c3 90 # ret and nop
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
 00 00
 00 00
 00 00
