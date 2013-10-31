@@ -6,17 +6,13 @@ c0 05 # ^- and add 0x120 to ax (cont)
 bc 00 # mov 0x1000 into sp (cont)			# finish setting up stack
 10 fc # ^- and clear direction bit
 31 db # xor bx into bx
-e8 11 # call 0x11 (cont)					# print ui
-00 90 # ^- and nop
-b4 00 # mov 0x00 into ah					# get character
-cd 16 # int 0x16
-b4 0e # mov 0x0e into ah
-90 90										# parse and command
-90 90
-90 90
-90 f4 # nop and hlt
-eb fd # jump -0x3
-55 89 # push bp and mov sp into bp (cont)	# procedure: print ui
+e8 09 # call print prompt (cont)			# print ui
+00 b4 # ^- and mov 0x00 into ah	(cont)		# get character
+00 cd # ^- and int 0x16 (cont)
+16 e8 # call parse procedure (cont)			# parse and command 
+78 00 # ^-
+eb f4 # jmp -0xc
+55 89 # push bp and mov sp into bp (cont)	# procedure: print prompt
 e5 50 # ^- and push ax
 b4 0e # mov 0x0e into ah
 b0 0d # mov 0x0d (CR) into al
@@ -72,7 +68,7 @@ e8 11 # call cntc (cont)
 c9 c3 # leave and ret
 04 30 # add 0x30 to al						# convert nibble to character (cntc)
 3c 3a # cmp al, 0x3a
-7c 02 # jl 0x20
+7c 02 # jl 0x2
 04 27 # add 0x27 to al
 c3 90 # ret and nop
 55 89 # push bp and mov sp into bp (cont)	# procedure: parse
@@ -105,6 +101,10 @@ fb 00 # ^-
 00 7e # ^- and jng 0x1 (cont)
 01 4b # ^- and dec bx 
 c9 c3 # leave and ret
+00 00
+00 00
+00 00
+00 00
 00 00
 00 00
 00 00
