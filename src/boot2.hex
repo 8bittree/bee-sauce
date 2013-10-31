@@ -84,7 +84,7 @@ e8 19 # call next cell procedure (cont)
 15 3c # ^- and cmp al, 0x68 ('h') (cont)
 68 75 # ^- jne 0x5 (cont)
 05 e8 # ^- and call prev cell procedure (cont)
-00 00 # ^-
+1c 00 # ^-
 eb 0c # jmp 0xc (to leave procedure)
 3c 77 # cmp al, 0x77 ('w')
 75 05 # jne 0x5
@@ -99,12 +99,12 @@ fb fe # ^-
 01 7d # ^- and jnl 0x1 (cont)
 01 43 # ^- and inc bx 
 c9 c3 # leave and ret
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
+55 89 # push bp and mov sp into bp (cont)	# procedure: prev cell
+e5 81 # ^- and cmp bx, 0 (cont)
+fb 00 # ^-
+00 7e # ^- and jng 0x1 (cont)
+01 4b # ^- and dec bx 
+c9 c3 # leave and ret
 00 00
 00 00
 00 00
