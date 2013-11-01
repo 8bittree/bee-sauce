@@ -5,11 +5,13 @@ c0 05 # ^- and add 0x120 to ax (cont)
 8e d0 # mov ax to ss
 bc 00 # mov 0x1000 into sp (cont)			# finish setting up stack
 10 fc # ^- and clear direction bit
-b8 55 # mov 0xaa55 into ax (cont)
-aa 90 # ^- nop
+31 db # xor bx into bx
+b4 02 # mov 2 into ah
+e8 ed # call access fdb sector 1 procedure
+00 b8 # mov 0xaa55 into ax (cont)
+55 aa # ^-
 26 a3 # mov ax into [es:510] (cont)
 fe 01 # ^-
-31 db # xor bx into bx
 e8 09 # call print prompt (cont)			# print ui
 00 b4 # ^- and mov 0x00 into ah	(cont)		# get character
 00 cd # ^- and int 0x16 (cont)
@@ -79,17 +81,18 @@ c3 90 # ret and nop
 e5 90 # ^- and nop
 3c 6c # cmp al, 0x6c ('l')
 75 05 # jne 0x5
-e8 19 # call next cell procedure (cont)
-00 eb # ^- jmp 0x15 (to leave procedure)
-15 3c # ^- and cmp al, 0x68 ('h') (cont)
+e8 1b # call next cell procedure (cont)
+00 eb # ^- jmp 0x17 (to leave procedure)
+17 3c # ^- and cmp al, 0x68 ('h') (cont)
 68 75 # ^- jne 0x5 (cont)
 05 e8 # ^- and call prev cell procedure (cont)
-1c 00 # ^-
-eb 0c # jmp 0xc (to leave procedure)
+1e 00 # ^-
+eb 0e # jmp 0xe (to leave procedure)
 3c 77 # cmp al, 0x77 ('w')
-75 05 # jne 0x5
+75 07 # jne 0x7
+b4 03 # mov 3 into ah
 e8 45 # call write procedure (cont)
-00 eb # ^- and jmp 0x3 (to leave procedure)
+00 eb # ^- and jmp 0x3 (to leave procedure) (cont)
 03 e8 # ^- and call edit cell procedure (cont)
 1a 00 # ^-
 c9 c3 # leave and ret
@@ -124,11 +127,10 @@ f0 26 # ^- and mov al into [es:bx] (cont)
 88 07 # ^-
 90 5a # nop and pop dx
 c9 c3 # leave and ret
-55 89 # push bp and mov sp into bp (cont)	# procedure: write to fdb sector 1
+55 89 # push bp and mov sp into bp (cont)	# procedure: access fdb sector 1
 e5 50 # ^- and push ax
 53 51 # push bx and push cx
 52 90 # push dx and nop
-b4 03 # mov 0x03 into ah
 b0 01 # mov 0x01 into al
 31 db # xor bx into bx
 b9 01 # mov 0x1 into cx (cont)
@@ -161,8 +163,6 @@ cd 10 # int 0x10
 5a 59 # pop dx and pop cx
 5b 58 # pop bx and pop ax
 c9 c3 # leave and ret
-00 00
-00 00
 00 00
 00 00
 00 00
