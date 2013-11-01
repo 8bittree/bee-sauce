@@ -84,7 +84,7 @@ e8 19 # call next cell procedure (cont)
 eb 0c # jmp 0xc (to leave procedure)
 3c 77 # cmp al, 0x77 ('w')
 75 05 # jne 0x5
-e8 00 # call write procedure (cont)
+e8 45 # call write procedure (cont)
 00 eb # ^- and jmp 0x3 (to leave procedure)
 03 e8 # ^- and call edit cell procedure (cont)
 1a 00 # ^-
@@ -120,43 +120,43 @@ f0 26 # ^- and mov al into [es:bx] (cont)
 88 07 # ^-
 90 5a # nop and pop dx
 c9 c3 # leave and ret
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
+55 89 # push bp and mov sp into bp (cont)	# procedure: write to fdb sector 1
+e5 50 # ^- and push ax
+53 51 # push bx and push cx
+52 90 # push dx and nop
+b4 03 # mov 0x03 into ah
+b0 01 # mov 0x01 into al
+31 db # xor bx into bx
+b9 01 # mov 0x1 into cx (cont)
+00 90 # ^- and nop
+89 ca # mov cx into dx
+cd 13 # int 0x13
+73 1e # jnc 0x1e
+88 e6 # mov ah into dh
+88 e0 # mov ah into al
+b4 0e # mov 0x0e into ah
+c0 e8 # logical shift al right 4 (cont)
+04 e8 # ^- and call cntc (cont)
+70 ff # ^-
+cd 10 # int 0x10
+88 f0 # mov dh into al
+24 0f # and 0xf into al
+e8 67 # call cntc (cont)
+ff cd # ^- and int 0x10 (cont)
+10 b0 # ^- and mov 0xa (LF) into al (cont)
+0a cd # ^- and int 0x10 (cont)
+10 90 # ^- and nop
+eb 0e # jmp 0xe (to exit of procedure)
+b4 0e # mov 0xe into ah
+b0 4f # mov 0x4f ('O') into al
+cd 10 # int 0x10
+b0 4b # mov 0x4b ('K') into al
+cd 10 # int 0x10
+b0 0a # mov 0xa (LF) into al
+cd 10 # int 0x10
+5a 59 # pop dx and pop cx
+5b 58 # pop bx and pop ax
+c9 c3 # leave and ret
 00 00
 00 00
 00 00
