@@ -5,6 +5,10 @@ c0 05 # ^- and add 0x120 to ax (cont)
 8e d0 # mov ax to ss
 bc 00 # mov 0x1000 into sp (cont)			# finish setting up stack
 10 fc # ^- and clear direction bit
+b8 55 # mov 0xaa55 into ax (cont)
+aa 90 # ^- nop
+26 a3 # mov ax into [es:510] (cont)
+fe 01 # ^-
 31 db # xor bx into bx
 e8 09 # call print prompt (cont)			# print ui
 00 b4 # ^- and mov 0x00 into ah	(cont)		# get character
@@ -90,8 +94,8 @@ e8 45 # call write procedure (cont)
 1a 00 # ^-
 c9 c3 # leave and ret
 55 89 # push bp and mov sp into bp (cont)	# procedure: next cell
-e5 81 # ^- and cmp bx, 510 (cont)
-fb fe # ^-
+e5 81 # ^- and cmp bx, 509 (cont)
+fb fd # ^-
 01 7d # ^- and jnl 0x1 (cont)
 01 43 # ^- and inc bx 
 c9 c3 # leave and ret
@@ -157,10 +161,6 @@ cd 10 # int 0x10
 5a 59 # pop dx and pop cx
 5b 58 # pop bx and pop ax
 c9 c3 # leave and ret
-00 00
-00 00
-00 00
-00 00
 00 00
 00 00
 00 00
