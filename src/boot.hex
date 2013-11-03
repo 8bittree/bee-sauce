@@ -1,168 +1,168 @@
-b8 e0 # mov 0x7e0 to ax (cont)
-07 90 # ^- and nop
-8e c0 # mov ax to es
-b9 fe # mov 510 to cx (cont)
-01 fc # ^- and clear direction bit
-90 90
+b8 e0 # mov 0x7e0 to ax (cont)				# Set up segments
+07 8e # ^- and mov ax to es (cont)
+c0 05 # ^- and add 0x120 to ax (cont)
+20 01 # ^-
+8e d0 # mov ax to ss
+bc 00 # mov 0x1000 into sp (cont)			# finish setting up stack
+10 fc # ^- and clear direction bit
+31 db # xor bx into bx
+b4 02 # mov 2 into ah
+e8 ed # call access fdb sector 1 procedure
+00 b8 # mov 0xaa55 into ax (cont)
+55 aa # ^-
+26 a3 # mov ax into [es:510] (cont)
+fe 01 # ^-
+e8 09 # call print prompt (cont)			# print ui
+00 b4 # ^- and mov 0x00 into ah	(cont)		# get character
+00 cd # ^- and int 0x16 (cont)
+16 e8 # call parse procedure (cont)			# parse and command 
+78 00 # ^-
+eb f4 # jmp -0xc
+55 89 # push bp and mov sp into bp (cont)	# procedure: print prompt
+e5 50 # ^- and push ax
 b4 0e # mov 0x0e into ah
-b0 3e # mov 0x3e into al
+b0 0d # mov 0x0d (CR) into al
 cd 10 # int 0x10
-b4 00 # mov 0x00 into ah
-cd 16 # int 0x16
-90 e9 # nop and jmp 0xa8 (cont)
-a8 00 # ^-
-b4 0e # mov 0x0e into ah
+b0 40 # mov 0x40 ('@') into al
 cd 10 # int 0x10
+b0 20 # mov 0x20 (' ') into al
+cd 10 # int 0x10
+b0 30 # mov 0x30 ('0') into al
+cd 10 # int 0x10
+b0 78 # mov 0x78 ('x') into al
+cd 10 # int 0x10
+88 f8 # mov bh into al						# convert bx to hex number
+c0 e8 # logical shift al right 4 (cont)
+04 e8 # ^- and call cntc (cont)
+4a 00 # ^-
+cd 10 # int 0x10
+88 f8 # mov bh into al
+24 0f # and 0xf into al
+e8 41 # call cntc (cont)
+00 cd # ^- and int 0x10 (cont)
+10 88 # ^- and mov bl into al (cont)
+d8 c0 # ^- and logical shift al right 4 (cont)
+e8 04 # ^-
+e8 37 # call cntc (cont)
+00 cd # ^- and  int 0x10 (cont)
+10 88 # ^- and mov bl into al (cont)
+d8 24 # ^- and and 0xf into al (cont)
+0f e8 # ^- and call cntc (cont)
+2e 00 # ^-
+cd 10 # int 0x10							# done printing bx
+b0 20 # mov 0x20 (' ') into al
+cd 10 # int 0x10
+b0 5b # mov 0x5b ('[') into al
+cd 10 # int 0x10
+26 8a # mov [es:bx] into al (cont)			# convert current value to hex number
+07 c0 # ^- and logical shift al right 4 (cont)
+e8 04 # ^-
+e8 1b # call cntc (cont)
+00 cd # ^- and int 0x10 (cont)
+10 26 # ^- and mov [es:bx] into al (cont)
+8a 07 # ^-
+24 0f # and 0xf into al
+e8 11 # call cntc (cont)
+00 cd # ^- and int 0x10 (cont)				# done printing value
+10 b0 # ^- and mov 0x5d (']') into al (cont)
+5d cd # ^- and int 0x10 (cont)
+10 b0 # ^- and mov 0x20 (' ') into al (cont)
+20 cd # ^- and int 0x10 (cont)
+10 b0 # ^- and mov 0x3e ('>') into al (cont)
+3e cd # ^- and int 0x10 (cont)
+10 58 # ^- and pop ax
+c9 c3 # leave and ret
+04 30 # add 0x30 to al						# convert nibble to character (cntc)
+3c 3a # cmp al, 0x3a
+7c 02 # jl 0x2
+04 27 # add 0x27 to al
+c3 90 # ret and nop
+55 89 # push bp and mov sp into bp (cont)	# procedure: parse
+e5 90 # ^- and nop
+3c 6c # cmp al, 0x6c ('l')
+75 05 # jne 0x5
+e8 1b # call next cell procedure (cont)
+00 eb # ^- jmp 0x17 (to leave procedure)
+17 3c # ^- and cmp al, 0x68 ('h') (cont)
+68 75 # ^- jne 0x5 (cont)
+05 e8 # ^- and call prev cell procedure (cont)
+1e 00 # ^-
+eb 0e # jmp 0xe (to leave procedure)
+3c 77 # cmp al, 0x77 ('w')
+75 07 # jne 0x7
+b4 03 # mov 3 into ah
+e8 45 # call write procedure (cont)
+00 eb # ^- and jmp 0x3 (to leave procedure) (cont)
+03 e8 # ^- and call edit cell procedure (cont)
+1a 00 # ^-
+c9 c3 # leave and ret
+55 89 # push bp and mov sp into bp (cont)	# procedure: next cell
+e5 81 # ^- and cmp bx, 509 (cont)
+fb fd # ^-
+01 7d # ^- and jnl 0x1 (cont)
+01 43 # ^- and inc bx 
+c9 c3 # leave and ret
+55 89 # push bp and mov sp into bp (cont)	# procedure: prev cell
+e5 81 # ^- and cmp bx, 0 (cont)
+fb 00 # ^-
+00 7e # ^- and jng 0x1 (cont)
+01 4b # ^- and dec bx 
+c9 c3 # leave and ret
+55 89 # push bp and mov sp into bp (cont)	# procedure: edit cell
+e5 52 # ^- and push dx
 2c 30 # subtract 0x30 from al
 3c 31 # cmp al, 0x31
 7c 02 # jl 0x2
 2c 27 # subtract 0x27 from al
 88 c6 # mov al into dh
-c0 e6 # shift dh left 4 (continued on 1st byte of next line)
-04 90 # ^- and nop
-b4 00 # mov 0x00 into ah
-cd 16 # int 0x16
-b4 0e # mov 0x0e into ah
-cd 10 # int 0x10
-2c 30 # subtract 0x30 from al
-3c 31 # cmp al, 0x31
-7c 02 # jl 0x2
-2c 27 # subtract 0x27 from al
-08 f0 # or dh into al
-aa 90 # stosb and nop
-90 90
-b4 0e # mov 0x0e into ah
-b0 20 # mov 0x20 into al
-cd 10 # int 0x10
-e2 c2 # loop -0x3e
-bf fe # mov 510 into di (cont)
-01 90 # ^- and nop
-b4 0e # mov 0x0e into ah
-b0 55 # mov 0x55 into al
-cd 10 # int 0x10
-aa 90 # stosb and nop
-b0 aa # mov 0xaa into al
-cd 10 # int 0x10
-aa 90 # stosb and nop
-90 90
-b4 03 # mov 0x03 into ah
+c0 e6 # shift dh left 4 (cont)
+04 b4 # ^- and mov 0x00 into ah
+00 cd # ^- and int 0x16 (cont)
+16 2c # ^- and subtract 0x30 from al (cont)
+30 3c # ^- and cmp al, 0x31 (cont)
+31 7c # ^- and jl 0x2 (cont)
+02 2c # ^- and subtract 0x27 from al (cont)
+27 08 # ^- and or dh into al (cont)
+f0 26 # ^- and mov al into [es:bx] (cont)
+88 07 # ^-
+90 5a # nop and pop dx
+c9 c3 # leave and ret
+55 89 # push bp and mov sp into bp (cont)	# procedure: access fdb sector 1
+e5 50 # ^- and push ax
+53 51 # push bx and push cx
+52 90 # push dx and nop
 b0 01 # mov 0x01 into al
 31 db # xor bx into bx
 b9 01 # mov 0x1 into cx (cont)
 00 90 # ^- and nop
 89 ca # mov cx into dx
 cd 13 # int 0x13
-90 90
-72 1e # jnc 0x1e
+73 1e # jnc 0x1e
+88 e6 # mov ah into dh
+88 e0 # mov ah into al
 b4 0e # mov 0x0e into ah
-b0 0a # mov 0x0a into al
+c0 e8 # logical shift al right 4 (cont)
+04 e8 # ^- and call cntc (cont)
+70 ff # ^-
 cd 10 # int 0x10
-b0 0d # mov 0x0d into al
+88 f0 # mov dh into al
+24 0f # and 0xf into al
+e8 67 # call cntc (cont)
+ff cd # ^- and int 0x10 (cont)
+10 b0 # ^- and mov 0xa (LF) into al (cont)
+0a cd # ^- and int 0x10 (cont)
+10 90 # ^- and nop
+eb 0e # jmp 0xe (to exit of procedure)
+b4 0e # mov 0xe into ah
+b0 4f # mov 0x4f ('O') into al
 cd 10 # int 0x10
-b0 44 # mov 0x44 into al
+b0 4b # mov 0x4b ('K') into al
 cd 10 # int 0x10
-b0 6f # mov 0x6f into al
+b0 0a # mov 0xa (LF) into al
 cd 10 # int 0x10
-b0 6e # mov 0x6e into al
-cd 10 # int 0x10
-b0 65 # mov 0x65 into al
-cd 10 # int 0x10
-eb 1e # jmp 0x1e
-90 90
-b4 0e # mov 0x0e into ah
-b0 0a # mov 0x0a into al
-cd 10 # int 0x10
-b0 0d # mov 0x0d into al
-cd 10 # int 0x10
-b0 46 # mov 0x46 into al
-cd 10 # int 0x10
-b0 61 # mov 0x61 into al
-cd 10 # int 0x10
-b0 69 # mov 0x69 into al
-cd 10 # int 0x10
-b0 6c # mov 0x6c into al
-cd 10 # int 0x10
-90 90
-b4 0e # mov 0x0e into ah
-b0 0a # mov 0x0a into al
-cd 10 # int 0x10
-b0 42 # mov 0x42 into al
-cd 10 # int 0x10
-b0 79 # mov 0x79 into al
-cd 10 # int 0x10
-b0 65 # mov 0x65 into al
-cd 10 # int 0x10
-eb fe # jmp here
-90 90
-90 90
-b2 77 # mov 0x77 into dl
-38 d0 # cmp al, dl
-0f 84 # jz -0x80 (cont)
-80 ff # ^- and nop
-b2 71 # mov 0x71 into dl
-38 d0 # cmp al, dl
-74 da # jz 0xda
-b2 08 # mov 0x08 into dl
-38 d0 # cmp al, dl
-0f 85 # jnz -0xbe (cont)
-42 ff # ^-
-90 90
-b4 0e # mov 0x0e into ah
-cd 10 # int 0x10
-cd 10 # int 0x10
-cd 10 # int 0x10
-cd 10 # int 0x10
-b0 20 # mov 0x20 into al
-cd 10 # int 0x10
-cd 10 # int 0x10
-cd 10 # int 0x10
-cd 10 # int 0x10
-b0 08 # mov 0x08 into al
-cd 10 # int 0x10
-cd 10 # int 0x10
-cd 10 # int 0x10
-cd 10 # int 0x10
-90 90
-81 ff # cmp di, 0 (cont)
-00 00 # ^-
-0f 84 # jz -0xf0 (cont)
-10 ff # ^-
-4f 90 # dec di and nop
-90 e9 # nop and jmp -0xf6 (cont)
-0a ff # ^-
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
-00 00
+5a 59 # pop dx and pop cx
+5b 58 # pop bx and pop ax
+c9 c3 # leave and ret
 00 00
 00 00
 00 00
