@@ -3,6 +3,8 @@ bee-sauce
 
 Operating System + Programming Language Bootstrapped from hex files.
 
+**Version 0.3.1**: Fix "compilation."
+
 **Version 0.3.0**: Load sector 1 of fdb into a memory array. Edit arbitrary
 bytes in the first 510 bytes of that array. Write the array back to sector 1 of
 fdb. Also this was a major rewrite.
@@ -31,6 +33,7 @@ To Build
 
 - `make`
 - `xxd`
+- `sed`
 - `dd` (optional, for floppy disk image)
 - `qemu` (optional, for testing)
 
@@ -64,6 +67,12 @@ Distant Future Plans
 
 Changelog
 ---------
+
+### 0.3.1
+
+- At some point, `xxd` stopped ignoring the stuff after the `#`s. This
+  is just a small fix that strips that stuff out before passing it to
+  `xxd`. Now requires `sed` to build.
 
 ### 0.3.0
 
