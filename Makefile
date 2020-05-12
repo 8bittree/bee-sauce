@@ -11,7 +11,7 @@ bin/floppy.flp:
 	dd if=/dev/zero of=bin/floppy.flp bs=512 count=2880
 
 bin/boot.bin: src/boot.hex
-	xxd -r -p src/boot.hex bin/boot.bin
+	sed 's/#.*//' src/boot.hex | xxd -r -p >bin/boot.bin
 
 clean:
 	rm -rf bin/floppy.flp bin/boot.bin
